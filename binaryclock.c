@@ -30,7 +30,7 @@ static uint8_t cs;
 void init_microscript( void ) {
     
 	cs = microscript_start;
-}
+} 
 
 void parse_microscript(const char* p, uint16_t len, uint8_t is_eof) {
     const char* pe = p + len; /

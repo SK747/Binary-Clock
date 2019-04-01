@@ -18,21 +18,39 @@ char variable[MAX_VARIABLE_LENGTH + 1];
 
 
 
-static const int microscript_start = 22;
-static const int microscript_first_final = 22;
-static const int microscript_error = 0;
+static const int binaryclock_start = 22;
+static const int binaryclock_first_final = 22;
+static const int binaryclock_error = 0;
 
-static const int microscript_en_main = 22;
+static const int binaryclock_en_main = 22;
 
 
 static uint8_t cs; 
 
-void init_microscript( void ) {
-    
-	cs = microscript_start;
-} 
+static const char _binary_clock_acts[] = {
+	0, 1, 1, 2, 8, 3, 9, 1, 
+	10, 1, 11, 1, 12, 1, 13, 2, 
+	2, 1, 3, 8, 12, 2, 9, 7, 
+	2, 9, 8, 3, 9, 11, 3, 14, 
+	4, 2, 14, 5, 3, 14, 6, 3, 
+	0, 14, 6, 3, 0, 14, 6, 3, 
+	9, 8, 12, 4, 2, 14, 3, 4
+	
+};
 
-void parse_microscript(const char* p, uint16_t len, uint8_t is_eof) {
+static const char _binary_clock_endoffile[] = {
+	0, 13, 13, 13, 13, 13, 13, 13, 
+	13, 13, 13, 13, 13, 13, 13, 13, 
+	13, 13, 13, 13, 13, 13, 0, 0, 
+	0, 0
+};
+
+void init_binaryclock( void ) {
+    
+	cs = binaryclock_start;
+}
+
+void parse_binaryclock(const char* p, uint16_t len, uint8_t is_eof) {
     const char* pe = p + len; /
     const char* eof = is_eof ? pe : ((char*) 0); 
     
@@ -371,25 +389,25 @@ case 21:
 	tr28: cs = 25; goto f14;
 	tr34: cs = 25; goto f18;
 
-	f3: _acts = _microscript_actions + 1; goto execFuncs;
-	f17: _acts = _microscript_actions + 3; goto execFuncs;
-	f5: _acts = _microscript_actions + 5; goto execFuncs;
-	f2: _acts = _microscript_actions + 7; goto execFuncs;
-	f8: _acts = _microscript_actions + 9; goto execFuncs;
-	f14: _acts = _microscript_actions + 11; goto execFuncs;
-	f0: _acts = _microscript_actions + 13; goto execFuncs;
-	f1: _acts = _microscript_actions + 15; goto execFuncs;
-	f18: _acts = _microscript_actions + 18; goto execFuncs;
-	f13: _acts = _microscript_actions + 21; goto execFuncs;
-	f10: _acts = _microscript_actions + 24; goto execFuncs;
-	f6: _acts = _microscript_actions + 27; goto execFuncs;
-	f7: _acts = _microscript_actions + 30; goto execFuncs;
-	f12: _acts = _microscript_actions + 33; goto execFuncs;
-	f16: _acts = _microscript_actions + 36; goto execFuncs;
-	f9: _acts = _microscript_actions + 39; goto execFuncs;
-	f15: _acts = _microscript_actions + 43; goto execFuncs;
-	f11: _acts = _microscript_actions + 47; goto execFuncs;
-	f4: _acts = _microscript_actions + 51; goto execFuncs;
+	f3: _acts = _binary_clock_acts + 1; goto execFuncs;
+	f17: _acts = _binary_clock_acts + 3; goto execFuncs;
+	f5: _acts = _binary_clock_acts + 5; goto execFuncs;
+	f2: _acts = _binary_clock_acts + 7; goto execFuncs;
+	f8: _acts = _binary_clock_acts + 9; goto execFuncs;
+	f14: _acts = _binary_clock_acts + 11; goto execFuncs;
+	f0: _acts = _binary_clock_acts + 13; goto execFuncs;
+	f1: _acts = _binary_clock_acts + 15; goto execFuncs;
+	f18: _acts = _binary_clock_acts + 18; goto execFuncs;
+	f13: _acts = _binary_clock_acts + 21; goto execFuncs;
+	f10: _acts = _binary_clock_acts + 24; goto execFuncs;
+	f6: _acts = _binary_clock_acts + 27; goto execFuncs;
+	f7: _acts = _binary_clock_acts + 30; goto execFuncs;
+	f12: _acts = _binary_clock_acts + 33; goto execFuncs;
+	f16: _acts = _binary_clock_acts + 36; goto execFuncs;
+	f9: _acts = _binary_clock_acts + 39; goto execFuncs;
+	f15: _acts = _binary_clock_acts + 43; goto execFuncs;
+	f11: _acts = _binary_clock_acts + 47; goto execFuncs;
+	f4: _acts = _binary_clock_acts + 51; goto execFuncs;
 
 execFuncs:
 	_nacts = *_acts++;
@@ -454,7 +472,7 @@ _again:
 	_test_eof: {}
 	if ( p == eof )
 	{
-	const char *__acts = _microscript_actions + _microscript_eof_actions[cs];
+	const char *__acts = _binary_clock_acts + _binary_clock_endoffile[cs];
 	unsigned int __nacts = (unsigned int) *__acts++;
 	while ( __nacts-- > 0 ) {
 		switch ( *__acts++ ) {

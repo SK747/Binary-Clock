@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "microscript.h"
+#include "binaryclock.h"
 
 enum {
   MAX_VARIABLE_LENGTH = 8   
